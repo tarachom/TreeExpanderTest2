@@ -13,6 +13,8 @@ public partial class FormJournal : Box
     {
         if (GetType().Namespace == "InterfaceGtk4") return;
 
+        Console.WriteLine("FormJournal: " + GetType());
+
         SetOrientation(Orientation.Vertical);
         ScrollGrid.SetPolicy(PolicyType.Automatic, PolicyType.Automatic);
     }

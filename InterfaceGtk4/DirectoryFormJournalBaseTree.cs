@@ -12,6 +12,8 @@ public partial class DirectoryFormJournalBaseTree : DirectoryFormJournalBase
     {
         if (GetType().Namespace == "InterfaceGtk4") return;
 
+        Console.WriteLine("DirectoryFormJournalBaseTree: " + GetType());
+
         GridModel();
     }
 

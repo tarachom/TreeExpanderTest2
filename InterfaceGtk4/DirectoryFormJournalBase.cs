@@ -12,6 +12,8 @@ public partial class DirectoryFormJournalBase : FormJournal
     {
         if (GetType().Namespace == "InterfaceGtk4") return;
 
+        Console.WriteLine("DirectoryFormJournalBase: " + GetType());
+
         Append(HBoxTop);
 
         Button button = Button.NewWithLabel("Refresh");

@@ -8,6 +8,8 @@ partial class DirectoryTest : DirectoryFormJournalBaseTree
 {
     partial void Initialize()
     {
+        Console.WriteLine("DirectoryTest: " + GetType());
+
         AddColumn();
     }
 
