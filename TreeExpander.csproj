@@ -13,8 +13,4 @@
     <PackageReference Include="GirCore.Gtk-4.0" Version="0.8.0-preview.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="images/*.png" CopyToOutputDirectory="PreserveNewest" />
-  </ItemGroup>
-
 </Project>
