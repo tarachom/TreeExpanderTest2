@@ -42,7 +42,7 @@ partial class DirectoryTest : DirectoryFormJournalBaseTree
 
         Store.RemoveAll();
 
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 5000; i++)
         {
             DirectoryHierarchicalRow row = DirectoryHierarchicalRow.New();
             row.Fields.Add("Name", $"Name {i}");
@@ -85,7 +85,7 @@ partial class DirectoryTest : DirectoryFormJournalBaseTree
             Grid.AppendColumn(column);
         }
 
-        //Назва
+        //Name
         {
             SignalListItemFactory factory = SignalListItemFactory.New();
             factory.OnSetup += (_, args) =>
