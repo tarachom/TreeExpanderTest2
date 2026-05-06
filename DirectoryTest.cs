@@ -21,7 +21,7 @@ partial class DirectoryTest : DirectoryFormJournalBaseTree
         return row;
     }
 
-    public override async ValueTask<List<DirectoryHierarchicalRow>> LoadChildren(UniqueID[] parents)
+    public override async Task<List<DirectoryHierarchicalRow>> LoadChildren()
     {
         List<DirectoryHierarchicalRow> list = [];
 
@@ -36,7 +36,7 @@ partial class DirectoryTest : DirectoryFormJournalBaseTree
         return list;
     }
 
-    public override async ValueTask LoadRecords()
+    public override async Task LoadRecords()
     {
         Console.WriteLine("LoadRecords");
 
@@ -77,7 +77,7 @@ partial class DirectoryTest : DirectoryFormJournalBaseTree
                         if (row.IsLoading)
                             cell.SetSpinner();
                         else
-                            cell.SetImage(ForTree.Normal);
+                            cell.SetImage(null);
                 }
             };
             ColumnViewColumn column = ColumnViewColumn.New("", factory);

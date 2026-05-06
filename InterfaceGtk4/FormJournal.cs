@@ -2,10 +2,9 @@ using Gtk;
 
 namespace InterfaceGtk4;
 
-[GObject.Subclass<Form>]
-public partial class FormJournal : Form
+[GObject.Subclass<Box>]
+public partial class FormJournal : Box
 {
-    public UniqueID? SelectPointerItem { get; set; } = null;
     public ColumnView Grid { get; } = ColumnView.NewWithProperties([]);
     public virtual Gio.ListStore Store { get; } = Gio.ListStore.NewWithProperties([]);
     protected ScrolledWindow ScrollGrid { get; } = ScrolledWindow.New();
@@ -14,33 +13,16 @@ public partial class FormJournal : Form
     {
         if (GetType().Namespace == "InterfaceGtk4") return;
 
+        SetOrientation(Orientation.Vertical);
         ScrollGrid.SetPolicy(PolicyType.Automatic, PolicyType.Automatic);
     }
 
-    protected virtual void GridOnSelectionChanged(SelectionModel sender, SelectionModel.SelectionChangedSignalArgs args)
-    {
-        Bitset selection = Grid.Model.GetSelection();
-
-        //Коли виділений один рядок
-        if (selection.GetMinimum() == selection.GetMaximum())
-        {
-            uint position = selection.GetMaximum();
-            if (Store.GetObject(position) is IRowSubclassJournal row)
-                SelectPointerItem = row.UniqueID;
-        }
-    }
-
-    protected async ValueTask Refresh() => await LoadRecords();
-
+    protected async Task Refresh() => await LoadRecords();
     protected virtual void GridModel() { }
-
-    public virtual async ValueTask LoadRecords() => await ValueTask.FromResult(true);
-
-    public virtual async ValueTask SetValue() => await ValueTask.FromResult(true);
-
+    public virtual async Task LoadRecords() => await Task.FromResult(true);
+    public virtual async Task SetValue() => await Task.FromResult(true);
     public virtual DirectoryHierarchicalRow LoadEmptyChildren() => DirectoryHierarchicalRow.New();
-
-    public virtual async ValueTask<List<DirectoryHierarchicalRow>> LoadChildren(UniqueID[] parents) => await ValueTask.FromResult(new List<DirectoryHierarchicalRow>());
+    public virtual async Task<List<DirectoryHierarchicalRow>> LoadChildren() => await Task.FromResult(new List<DirectoryHierarchicalRow>());
 
 
 }

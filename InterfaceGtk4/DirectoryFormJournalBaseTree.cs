@@ -11,7 +11,7 @@ public partial class DirectoryFormJournalBaseTree : DirectoryFormJournalBase
     partial void Initialize()
     {
         if (GetType().Namespace == "InterfaceGtk4") return;
-        
+
         GridModel();
     }
 
@@ -25,8 +25,6 @@ public partial class DirectoryFormJournalBaseTree : DirectoryFormJournalBase
 
         //Модель
         MultiSelection model = MultiSelection.New(TreeList);
-        model.OnSelectionChanged += GridOnSelectionChanged;
-
         Grid.Model = model;
     }
 
@@ -43,11 +41,13 @@ public partial class DirectoryFormJournalBaseTree : DirectoryFormJournalBase
                 {
                     async void f()
                     {
+                        await Task.Delay(500);
+
                         try
                         {
                             itemRow.Store.RemoveAll();
 
-                            var list = await LoadChildren([]);
+                            var list = await LoadChildren();
                             foreach (var item in list)
                                 itemRow.Store.Append(item);
 
@@ -68,7 +68,6 @@ public partial class DirectoryFormJournalBaseTree : DirectoryFormJournalBase
             store = Gio.ListStore.New(DirectoryHierarchicalRow.GetGType());
 
             DirectoryHierarchicalRow itemEmpty = LoadEmptyChildren();
-            itemEmpty.UniqueID = itemRow.UniqueID;
             itemEmpty.IsLoading = true;
             itemEmpty.Store = store;
 

@@ -3,11 +3,9 @@
 /// Ієрархічний рядок
 /// </summary>
 [GObject.Subclass<GObject.Object>]
-public partial class DirectoryHierarchicalRow : IRowSubclassJournal
+public partial class DirectoryHierarchicalRow 
 {
     public static DirectoryHierarchicalRow New() => NewWithProperties([]);
-
-    #region Динамічне довантаження
 
     /// <summary>
     /// Цей елемент для завантаження даних
@@ -18,13 +16,6 @@ public partial class DirectoryHierarchicalRow : IRowSubclassJournal
     /// Сховище
     /// </summary>
     public Gio.ListStore? Store { get; set; } = null;
-
-    #endregion
-
-    /// <summary>
-    /// Унікальний ідентифікатор
-    /// </summary>
-    public UniqueID UniqueID { get; set; } = UniqueID.NewEmpty();
 
     /// <summary>
     /// Колекція полів

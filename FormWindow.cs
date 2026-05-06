@@ -21,7 +21,7 @@ partial class FormWindow : Window
         {
             Button button = Button.NewWithLabel("Add");
             button.MarginStart = button.MarginEnd = button.MarginTop = button.MarginBottom = 5;
-            button.OnClicked += OnClicked;
+            button.OnClicked += async (_, _) => await Add();
 
             Box hBox = Box.New(Horizontal, 0);
             hBox.Append(button);
@@ -34,10 +34,10 @@ partial class FormWindow : Window
         Child = vBox;
     }
 
-    private async void OnClicked(Button button, EventArgs args)
+    async ValueTask Add()
     {
         DirectoryTest directoryTest = DirectoryTest.New();
-        await directoryTest.SetValue();
+        await directoryTest.LoadRecords();
 
         notebook.AppendPage(directoryTest, Label.New("Name"));
     }
