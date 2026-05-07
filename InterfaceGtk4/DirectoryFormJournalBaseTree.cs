@@ -41,7 +41,7 @@ public partial class DirectoryFormJournalBaseTree : DirectoryFormJournalBase
             {
                 GLib.Functions.IdleAdd(0, () =>
                 {
-                    async void f()
+                    async Task<bool> f()
                     {
                         await Task.Delay(500);
 
@@ -53,14 +53,17 @@ public partial class DirectoryFormJournalBaseTree : DirectoryFormJournalBase
                             foreach (var item in list)
                                 itemRow.Store.Append(item);
 
+                            return true;
                         }
                         catch (Exception ex)
                         {
                             Console.WriteLine(ex.Message);
+                            return false;
                         }
                     }
 
-                    f();
+                   _= f();
+
                     return false;
                 });
             }

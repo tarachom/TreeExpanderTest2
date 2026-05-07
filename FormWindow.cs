@@ -34,7 +34,7 @@ partial class FormWindow : Window
         Child = vBox;
     }
 
-    async ValueTask Add()
+    async Task Add()
     {
         DirectoryTest directoryTest = DirectoryTest.New();
         await directoryTest.LoadRecords();

@@ -62,7 +62,7 @@ partial class DirectoryTest : DirectoryFormJournalBaseTree
             {
                 ListItem listItem = (ListItem)args.Object;
                 TreeExpander expander = TreeExpander.New();
-                expander.SetChild(ImageTablePartCell.New());
+                expander.SetChild(Label.New(null));
                 listItem.SetChild(expander);
             };
             factory.OnBind += (_, args) =>
@@ -73,13 +73,10 @@ partial class DirectoryTest : DirectoryFormJournalBaseTree
                 if (expander != null && treeRow != null)
                 {
                     expander.SetListRow(treeRow);
-                    ImageTablePartCell? cell = (ImageTablePartCell?)expander.GetChild();
+                    Label? cell = (Label?)expander.GetChild();
                     DirectoryHierarchicalRow? row = (DirectoryHierarchicalRow?)treeRow.Item;
                     if (cell != null && row != null)
-                        if (row.IsLoading)
-                            cell.SetSpinner();
-                        else
-                            cell.SetImage(null);
+                            cell.SetText("");
                 }
             };
             ColumnViewColumn column = ColumnViewColumn.New("", factory);
@@ -93,7 +90,7 @@ partial class DirectoryTest : DirectoryFormJournalBaseTree
             factory.OnSetup += (_, args) =>
             {
                 ListItem listItem = (ListItem)args.Object;
-                listItem.Child = LabelTablePartCell.NewFromType("integer");
+                listItem.Child = Label.New(null);
             };
             factory.OnBind += (_, args) =>
             {
@@ -101,10 +98,10 @@ partial class DirectoryTest : DirectoryFormJournalBaseTree
                 TreeListRow? treeRow = (TreeListRow?)listItem.GetItem();
                 if (treeRow != null)
                 {
-                    LabelTablePartCell? cell = (LabelTablePartCell?)listItem.Child;
+                    Label? cell = (Label?)listItem.Child;
                     DirectoryHierarchicalRow? row = (DirectoryHierarchicalRow?)treeRow.Item;
                     if (cell != null && row != null)
-                        cell.SetText(row.Fields["Name"]);
+                        cell.SetText(row.Fields["Name"] ?? "");
                 }
             };
             ColumnViewColumn column = ColumnViewColumn.New("Name", factory);
